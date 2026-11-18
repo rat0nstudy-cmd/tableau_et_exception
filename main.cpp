@@ -13,11 +13,28 @@ int empty_stack();
 int diplay_stack();
 string display();
 
+void display_choices() {
+    cout << "1 - Empiler" << endl;
+    cout << "2 - Dépiler" << endl;
+    cout << "3 - Consulter le sommet" << endl;
+    cout << "4 - Modifier l'élément au sommet" << endl;
+    cout << "5 - Vérifier si la pile est vide" << endl;
+    cout << "6 - Afficher le nombre de valeurs" << endl;
+    cout << "7 - Vider la pile" << endl;
+    cout << "8 - Afficher toute la pile" << endl;
+    cout << "0 - Quitter" << endl;
+}
+
 int main () {
     const int max_size = 10;
     int choice = 0;
     array<int,max_size> stack = {};
+
+    cout << "Ce programme permet de manipuler une pile d'entiers." << endl;
+
     do {
+        display_choices();
+
         cout << "Votre choix : ";
         cin >> choice;
 
@@ -31,7 +48,6 @@ int main () {
             case 7 : empty_stack(); break;
             case 8 : diplay_stack(); break;
         }
-        display();
     } while (choice != 0);
 
 }
