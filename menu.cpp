@@ -3,9 +3,6 @@
 
 #include <iostream>
 
-//constexpr int stack_size = 10;
-using Stack = std::array<int, stack_size>;
-
 void display_menu() {
     std::cout << "1 - Empiler" << std::endl;
     std::cout << "2 - Depiler" << std::endl;
@@ -35,9 +32,10 @@ void menu() {
     constexpr int display_value_nbr = 6;
     constexpr int empty_stack_nbr = 7;
     constexpr int display_stack_nbr = 8;
-    
-    std::size_t stack_counter = 0;
+
     Stack stack {};
+    std::size_t stack_counter = 0;
+
     int menu_choice = 0;
     do {
         display_menu();
@@ -45,33 +43,34 @@ void menu() {
 
         switch (menu_choice) {
             case stack_nbr: {
-                add_stack(get_input("Valeur : "));
+                add_stack(get_input("Valeur : "), stack, stack_counter);
                 std::cout << "Valeur empilee." << std::endl;
                 break;
             }
             case unstack_nbr: {
-                std::cout << "Valeur retiree : " << unstack() << std::endl;
+                unstack(stack_counter);
+                std::cout << "Valeur retiree : " << stack[stack_counter] << std::endl;
                 break;
             }
             case display_top_nbr: {
-                std::cout << "Sommet : " << get_stack_top() << std::endl;
+                std::cout << "Sommet : " << get_stack_top(stack, stack_counter) << std::endl;
                 break;
             }
             case update_top_nbr: {
-                update_stack_top(get_input("Valeur de remplacement : "));
+                update_stack_top(get_input("Valeur de remplacement : "), stack, stack_counter);
                 std::cout << "Valeur remplacée." << std::endl;
                 break;
             }
             case check_empty_nbr: {
-                std::cout << (is_stack_empty() ? "La pile est vide." : "La pile n'est pas vice.") << std::endl;
+                std::cout << (is_stack_empty(stack_counter) ? "La pile est vide." : "La pile n'est pas vice.") << std::endl;
                 break;
             }
             case display_value_nbr: {
-                std::cout << "Nombre de valeurs : " << get_stack_size() << std::endl;
+                std::cout << "Nombre de valeurs : " << get_stack_size(stack_counter) << std::endl;
                 break;
             }
             case empty_stack_nbr: {
-                empty_stack();
+                empty_stack(stack_counter);
                 std::cout << "Pile vidée" << std::endl;
                 break;
             }
