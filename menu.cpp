@@ -1,0 +1,87 @@
+#include "menu.h"
+#include "stack.h"
+
+#include <iostream>
+
+//constexpr int stack_size = 10;
+using Stack = std::array<int, stack_size>;
+
+void display_menu() {
+    std::cout << "1 - Empiler" << std::endl;
+    std::cout << "2 - Depiler" << std::endl;
+    std::cout << "3 - Consulter le sommet" << std::endl;
+    std::cout << "4 - Modifier l'element au sommet" << std::endl;
+    std::cout << "5 - Verifier si la pile est vide" << std::endl;
+    std::cout << "6 - Afficher le nombre de valeurs" << std::endl;
+    std::cout << "7 - Vider la pile" << std::endl;
+    std::cout << "8 - Afficher toute la pile" << std::endl;
+    std::cout << "0 - Quitter" << std::endl;
+}
+
+int get_input(const char* const str) {
+    int input;
+    std::cout << str;
+    std::cin >> input;
+    return input;
+}
+
+void menu() {
+    constexpr int program_stop_nbr = 0;
+    constexpr int stack_nbr = 1;
+    constexpr int unstack_nbr = 2;
+    constexpr int display_top_nbr = 3;
+    constexpr int update_top_nbr = 4;
+    constexpr int check_empty_nbr = 5;
+    constexpr int display_value_nbr = 6;
+    constexpr int empty_stack_nbr = 7;
+    constexpr int display_stack_nbr = 8;
+    
+    std::size_t stack_counter = 0;
+    Stack stack {};
+    int menu_choice = 0;
+    do {
+        display_menu();
+        menu_choice = get_input("Votre choix : ");
+
+        switch (menu_choice) {
+            case stack_nbr: {
+                add_stack(get_input("Valeur : "));
+                std::cout << "Valeur empilee." << std::endl;
+                break;
+            }
+            case unstack_nbr: {
+                std::cout << "Valeur retiree : " << unstack() << std::endl;
+                break;
+            }
+            case display_top_nbr: {
+                std::cout << "Sommet : " << get_stack_top() << std::endl;
+                break;
+            }
+            case update_top_nbr: {
+                update_stack_top(get_input("Valeur de remplacement : "));
+                std::cout << "Valeur remplacée." << std::endl;
+                break;
+            }
+            case check_empty_nbr: {
+                std::cout << (is_stack_empty() ? "La pile est vide." : "La pile n'est pas vice.") << std::endl;
+                break;
+            }
+            case display_value_nbr: {
+                std::cout << "Nombre de valeurs : " << get_stack_size() << std::endl;
+                break;
+            }
+            case empty_stack_nbr: {
+                empty_stack();
+                std::cout << "Pile vidée" << std::endl;
+                break;
+            }
+            case display_stack_nbr: {
+                //display_stack();
+                break;
+            }
+            default:
+                //TODO
+                break;
+        }
+    } while (menu_choice != program_stop_nbr);
+}
