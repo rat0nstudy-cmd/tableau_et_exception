@@ -2,6 +2,7 @@
 #include "stack.h"
 
 #include <iostream>
+#include<iomanip>
 
 void display_menu() {
     std::cout << "1 - Empiler" << std::endl;
@@ -75,7 +76,16 @@ void menu() {
                 break;
             }
             case display_stack_nbr: {
-                //display_stack();
+                size_t i = get_stack_size(stack_counter);
+                if (i == 0) {
+                    std::cout << "Stack vide" << std::endl;
+                } else {
+                    std::cout << "Sommet -> " << stack[i - 1] << std::endl;
+                    for (i -= 1;i > 1; --i) {
+                        std::cout << std::setw(11) << stack[i - 1] << std::endl;
+                    }
+                    std::cout << "Fond   -> " << stack[0] << std::endl;
+                }
                 break;
             }
             default:
