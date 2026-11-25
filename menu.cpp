@@ -76,16 +76,7 @@ void menu() {
                 break;
             }
             case display_stack_nbr: {
-                size_t i = get_stack_size(stack_counter);
-                if (i == 0) {
-                    std::cout << "Stack vide" << std::endl;
-                } else {
-                    std::cout << "Sommet -> " << stack[i - 1] << std::endl;
-                    for (i -= 1;i > 1; --i) {
-                        std::cout << std::setw(11) << stack[i - 1] << std::endl;
-                    }
-                    std::cout << "Fond   -> " << stack[0] << std::endl;
-                }
+                display_stack(stack_counter, stack);
                 break;
             }
             default:
