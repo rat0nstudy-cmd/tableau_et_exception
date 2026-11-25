@@ -1,32 +1,45 @@
 #include "stack.h"
 #include<iostream>
-#include<iomanip>
 
-void add_stack(const int value, Stack& stack, std::size_t& stack_counter) {
+#include <stdexcept>
+
+void push(const int value, Stack& stack, std::size_t& stack_counter) {
+    if (stack_counter == stack.size()) {
+        throw std::overflow_error("impossible d'empiler dans une pile pleine.");
+    }
     stack.at(stack_counter) = value;
     stack_counter++;
 }
 
-void unstack(std::size_t& stack_counter) {
+void pop(std::size_t& stack_counter) {
+    if (stack_counter == 0) {
+        throw std::underflow_error("impossible de depiler une pile vide.");
+    }
     stack_counter--;
 }
 
-int get_stack_top(const Stack& stack, const std::size_t& stack_counter) {
-    return stack[stack_counter - 1];
+int top(const Stack& stack, const std::size_t& stack_counter) {
+    if (stack_counter == 0) {
+        throw std::underflow_error("impossible de consulter le sommet d'une pile vide.");
+    }
+    return stack.at(stack_counter - 1);
 }
 
-void update_stack_top(const int value, Stack& stack, const std::size_t& stack_counter) {
-    stack[stack_counter - 1] = value;
+void top(const int value, Stack& stack, const std::size_t& stack_counter) {
+    if (stack_counter == 0) {
+        throw std::underflow_error("impossible de remplacer le sommet d'une pile vide.");
+    }
+    stack.at(stack_counter - 1) = value;
 }
 
-bool is_stack_empty(const std::size_t& stack_counter) {
-    return !stack_counter;
+bool empty(const std::size_t& stack_counter) {
+    return stack_counter == 0;
 }
 
-std::size_t get_stack_size(const std::size_t& stack_counter) {
+std::size_t size(const std::size_t& stack_counter) {
     return stack_counter;
 }
 
-void empty_stack(size_t& stack_counter) {
+void clear(std::size_t& stack_counter) {
     stack_counter = 0;
 }
