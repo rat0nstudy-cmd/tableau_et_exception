@@ -4,18 +4,22 @@
 #include <iostream>
 #include<iomanip>
 
-void display_stack(size_t i, Stack& stack) {
+void display_stack(size_t i, const Stack& stack) {
     if (i == 0) {
         std::cout << "Stack vide\n";
-    } else if (i == 1) {
-        std::cout << "Sommet / Fond -> " << stack[i - 1] << "\n";
-    } else {
-        std::cout << "Sommet -> " << stack[i - 1] << "\n";
-        for (i -= 1;i > 1; --i) {
-            std::cout << std::setw(11) << stack[i - 1] << "\n";
-        }
-        std::cout << "Fond   -> " << stack[0] << "\n";
+        return;
     }
+    if (i == 1) {
+        std::cout << "Sommet / Fond -> " << stack[i - 1] << "\n";
+        return;
+    }
+
+
+    std::cout << "Sommet -> " << stack[i - 1] << "\n";
+    for (i -= 1;i > 1; --i) {
+        std::cout << std::setw(11) << stack[i - 1] << "\n";
+    }
+    std::cout << "Fond   -> " << stack[0] << "\n";
 }
 
 void display_menu() {
@@ -30,9 +34,9 @@ void display_menu() {
     std::cout << "0 - Quitter\n";
 }
 
-int get_input(const char* const str) {
+int get_input(const char* text) {
     int input;
-    std::cout << str;
+    std::cout << text;
     std::cin >> input;
     return input;
 }
@@ -56,72 +60,57 @@ void menu() {
         display_menu();
         menu_choice = get_input("Votre choix : ");
 
-        switch (menu_choice) {
-            case program_stop_nbr: break;
-            case stack_nbr: {
-                try {
+        try {
+            switch (menu_choice) {
+                case program_stop_nbr: break;
+                case stack_nbr: {
                     push(get_input("Valeur : "), stack, stack_counter);
                     std::cout << "Valeur empilee.\n";
-                } catch (const std::exception& e) {
-                    std::cout << "Erreur : " << e.what() << "\n";
+                    break;
                 }
-
-                break;
-            }
-            case unstack_nbr: {
-                try {
+                case unstack_nbr: {
                     int stack_top = 0;
                     if (!empty(stack_counter)) { //Force the error of type pop instead of top
                         stack_top = top(stack, stack_counter);
                     }
-
+                    //Return a top error instead of a pop error
                     pop(stack_counter); // Can't return the integer given the instruction, so use a top instead
                     std::cout << "Valeur retiree : " << stack_top << "\n";
-                } catch (const std::exception& e) {
-                    std::cout << "Erreur : " << e.what() << "\n"; //Return a top error instead of a pop error TODO
-                }
 
-                break;
-            }
-            case display_top_nbr: {
-                try {
+                    break;
+                }
+                case display_top_nbr: {
                     std::cout << "Sommet : " << top(stack, stack_counter) << "\n";
-                } catch (const std::exception& e) {
-                    std::cout << "Erreur : " << e.what() << "\n";
+                    break;
                 }
-
-                break;
-            }
-            case update_top_nbr: {
-                try {
+                case update_top_nbr: {
                     top(get_input("Valeur de remplacement : "), stack, stack_counter);
                     std::cout << "Valeur remplacée.\n";
-                } catch (const std::exception& e) {
-                    std::cout << "Erreur : " << e.what() << "\n";
+                    break;
                 }
-
-                break;
+                case check_empty_nbr: {
+                    std::cout << (empty(stack_counter) ? "La pile est vide.\n" : "La pile n'est pas vide.\n");
+                    break;
+                }
+                case display_value_nbr: {
+                    std::cout << "Nombre de valeurs : " << size(stack_counter) << "\n";
+                    break;
+                }
+                case empty_stack_nbr: {
+                    clear(stack_counter);
+                    std::cout << "Pile vidée\n";
+                    break;
+                }
+                case display_stack_nbr: {
+                    display_stack(stack_counter, stack);
+                    break;
+                }
+                default:
+                    std::cout << "Valeur invalide\n";
+                    break;
             }
-            case check_empty_nbr: {
-                std::cout << (empty(stack_counter) ? "La pile est vide.\n" : "La pile n'est pas vide.\n");
-                break;
-            }
-            case display_value_nbr: {
-                std::cout << "Nombre de valeurs : " << size(stack_counter) << "\n";
-                break;
-            }
-            case empty_stack_nbr: {
-                clear(stack_counter);
-                std::cout << "Pile vidée\n";
-                break;
-            }
-            case display_stack_nbr: {
-                display_stack(stack_counter, stack);
-                break;
-            }
-            default:
-                std::cout << "Valeur invalide\n";
-                break;
+        } catch (const std::exception& e) {
+            std::cout << "Erreur : " << e.what() << "\n";
         }
     } while (menu_choice != program_stop_nbr);
     std::cout << "Fin de programme.\n";
