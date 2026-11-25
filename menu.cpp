@@ -70,7 +70,11 @@ void menu() {
             }
             case unstack_nbr: {
                 try {
-                    int stack_top = top(stack, stack_counter);
+                    int stack_top = 0;
+                    if (!empty(stack_counter)) { //Force the error of type pop instead of top
+                        stack_top = top(stack, stack_counter);
+                    }
+
                     pop(stack_counter); // Can't return the integer given the instruction, so use a top instead
                     std::cout << "Valeur retiree : " << stack_top << "\n";
                 } catch (const std::exception& e) {
@@ -99,7 +103,7 @@ void menu() {
                 break;
             }
             case check_empty_nbr: {
-                std::cout << (empty(stack_counter) ? "La pile est vide." : "La pile n'est pas vice.") << std::endl;
+                std::cout << (empty(stack_counter) ? "La pile est vide." : "La pile n'est pas vide.") << std::endl;
                 break;
             }
             case display_value_nbr: {
