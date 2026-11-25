@@ -6,7 +6,7 @@
 
 void display_stack(size_t i, const Stack& stack) {
     if (i == 0) {
-        std::cout << "Stack vide\n";
+        std::cout << "La pile est vide.\n";
         return;
     }
     if (i == 1) {
