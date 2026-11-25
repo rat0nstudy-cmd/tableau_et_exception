@@ -94,7 +94,7 @@ void menu() {
                 break;
             }
             default:
-                //TODO
+                std::cout << "Valeur invalide" << std::endl;
                 break;
         }
     } while (menu_choice != program_stop_nbr);
