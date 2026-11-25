@@ -85,7 +85,7 @@ void menu() {
                 }
                 case update_top_nbr: {
                     top(get_input("Valeur de remplacement : "), stack, stack_counter);
-                    std::cout << "Valeur remplacée.\n";
+                    std::cout << "Valeur remplacee.\n";
                     break;
                 }
                 case check_empty_nbr: {
@@ -98,7 +98,7 @@ void menu() {
                 }
                 case empty_stack_nbr: {
                     clear(stack_counter);
-                    std::cout << "Pile vidée\n";
+                    std::cout << "Pile videe\n";
                     break;
                 }
                 case display_stack_nbr: {
