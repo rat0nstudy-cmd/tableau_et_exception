@@ -30,17 +30,3 @@ std::size_t get_stack_size(const std::size_t& stack_counter) {
 void empty_stack(size_t& stack_counter) {
     stack_counter = 0;
 }
-
-void display_stack(size_t i, Stack& stack) {
-    if (i == 0) {
-        std::cout << "Stack vide" << std::endl;
-    } else if (i == 1) {
-        std::cout << "Sommet / Fond -> " << stack[i - 1] << std::endl;
-    } else {
-        std::cout << "Sommet -> " << stack[i - 1] << std::endl;
-        for (i -= 1;i > 1; --i) {
-            std::cout << std::setw(11) << stack[i - 1] << std::endl;
-        }
-        std::cout << "Fond   -> " << stack[0] << std::endl;
-    }
-}

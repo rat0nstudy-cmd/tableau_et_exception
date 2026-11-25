@@ -4,6 +4,20 @@
 #include <iostream>
 #include<iomanip>
 
+void display_stack(size_t i, Stack& stack) {
+    if (i == 0) {
+        std::cout << "Stack vide" << std::endl;
+    } else if (i == 1) {
+        std::cout << "Sommet / Fond -> " << stack[i - 1] << std::endl;
+    } else {
+        std::cout << "Sommet -> " << stack[i - 1] << std::endl;
+        for (i -= 1;i > 1; --i) {
+            std::cout << std::setw(11) << stack[i - 1] << std::endl;
+        }
+        std::cout << "Fond   -> " << stack[0] << std::endl;
+    }
+}
+
 void display_menu() {
     std::cout << "1 - Empiler" << std::endl;
     std::cout << "2 - Depiler" << std::endl;

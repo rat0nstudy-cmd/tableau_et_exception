@@ -14,5 +14,4 @@ void update_stack_top(int value, Stack& stack, const size_t& stack_counter);
 bool is_stack_empty(const size_t& stack_counter);
 std::size_t get_stack_size(const size_t& stack_counter);
 void empty_stack(size_t& stack_counter);
-void display_stack(size_t, Stack& stack);
 #endif //TABLEAU_ET_EXCEPTION_STACK_H
